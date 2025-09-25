@@ -1,0 +1,20 @@
+  0%|          | 0/1250 [00:00<?, ?it/s]/home/dgehrig/Documents/projects/ev/ev/src/ev/models/network.py:62: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /pytorch/aten/src/ATen/native/Cross.cpp:62.)
+  r3 = torch.cross(r1, r2)
+Backend qtagg is interactive backend. Turning interactive mode on.
+  0%|          | 0/1250 [00:39<?, ?it/s]
+Traceback (most recent call last):
+  File "/home/dgehrig/Documents/projects/ev/ev/scripts/train.py", line 94, in val
+    ret = train(loader, model, optimizer=None)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dgehrig/Documents/projects/ev/ev/scripts/train.py", line 73, in train
+    error = se3_log_torch(torch.linalg.inv(Delta_T_gt) @ Delta_T_pred)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dgehrig/Documents/projects/ev/ev/scripts/train.py", line 56, in se3_log_torch
+    delta_r = so3_log_torch(delta_R)
+              ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dgehrig/Documents/projects/ev/ev/scripts/train.py", line 22, in so3_log_torch
+    cos_theta = torch.clamp(0.5 * (torch.trace(delta_R) - 1), -1, 1)
+                                   ^^^^^^^^^^^^^^^^^^^^
+RuntimeError: expected a matrix

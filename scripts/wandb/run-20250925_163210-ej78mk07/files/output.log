@@ -1,0 +1,20 @@
+  2%|▎         | 1/40 [00:05<03:28,  5.35s/it]
+Traceback (most recent call last):
+  File "/home/dgehrig/Documents/projects/ev/ev/scripts/train.py", line 193, in <module>
+    error = val(test_loader, model)
+            ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dgehrig/Documents/projects/ev/ev/scripts/train.py", line 122, in val
+    ret = train(loader, model, optimizer=None)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dgehrig/Documents/projects/ev/ev/scripts/train.py", line 99, in train
+    error = se3_log_torch(torch.linalg.inv(Delta_T_gt) @ Delta_T_pred)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dgehrig/Documents/projects/ev/ev/scripts/train.py", line 78, in se3_log_torch
+    return pp.mat2SE3(delta_T).Log().matrix()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/dgehrig/.mamba/envs/ev/lib/python3.11/site-packages/pypose/lietensor/convert.py", line 251, in mat2SE3
+    q = mat2SO3(mat[..., :3, :3], check=check, rtol=rtol, atol=atol).tensor()
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dgehrig/.mamba/envs/ev/lib/python3.11/site-packages/pypose/lietensor/convert.py", line 91, in mat2SO3
+    raise ValueError("Input rotation matrices are not all orthogonal matrix")
+ValueError: Input rotation matrices are not all orthogonal matrix

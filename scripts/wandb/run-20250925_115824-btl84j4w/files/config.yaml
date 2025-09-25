@@ -1,0 +1,36 @@
+_wandb:
+    value:
+        cli_version: 0.19.5
+        code_path: code/scripts/train.py
+        m: []
+        python_version: 3.11.11
+        t:
+            "1":
+                - 1
+                - 55
+            "2":
+                - 1
+                - 55
+            "3":
+                - 1
+                - 16
+                - 23
+                - 55
+            "4": 3.11.11
+            "5": 0.19.5
+            "8":
+                - 5
+            "12": 0.19.5
+            "13": linux-x86_64
+batch_size:
+    value: 8
+learning_rate:
+    value: 0.001
+num_epochs:
+    value: 5
+sampling:
+    value: regular
+training_root:
+    value: /home/dgehrig/Documents/projects/ev/ev/data/train_spline
+validation_root:
+    value: /home/dgehrig/Documents/projects/ev/ev/data/valid_spline

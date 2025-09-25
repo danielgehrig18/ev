@@ -1,0 +1,7 @@
+{"time":"2025-09-25T12:00:37.996034165-04:00","level":"INFO","msg":"stream: starting","core version":"0.19.5","symlink path":"/home/dgehrig/Documents/projects/ev/ev/scripts/wandb/run-20250925_120037-b1gh0bkp/logs/debug-core.log"}
+{"time":"2025-09-25T12:00:38.103736899-04:00","level":"INFO","msg":"created new stream","id":"b1gh0bkp"}
+{"time":"2025-09-25T12:00:38.103782065-04:00","level":"INFO","msg":"stream: started","id":"b1gh0bkp"}
+{"time":"2025-09-25T12:00:38.10386319-04:00","level":"INFO","msg":"writer: Do: started","stream_id":"b1gh0bkp"}
+{"time":"2025-09-25T12:00:38.103983457-04:00","level":"INFO","msg":"handler: started","stream_id":"b1gh0bkp"}
+{"time":"2025-09-25T12:00:38.104132171-04:00","level":"INFO","msg":"sender: started","stream_id":"b1gh0bkp"}
+{"time":"2025-09-25T12:00:38.287234678-04:00","level":"INFO","msg":"Starting system monitor"}

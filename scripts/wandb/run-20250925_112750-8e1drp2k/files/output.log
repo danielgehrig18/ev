@@ -1,0 +1,25 @@
+  0%|          | 0/1250 [00:49<?, ?it/s]
+Backend qtagg is interactive backend. Turning interactive mode on.
+Traceback (most recent call last):
+  File "/home/dgehrig/Documents/projects/ev/ev/scripts/train.py", line 94, in val
+    ret = train(loader, model, optimizer=None)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dgehrig/Documents/projects/ev/ev/scripts/train.py", line 69, in train
+    Delta_T_pred = model(timestamps=samples["timestamps"],
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dgehrig/.mamba/envs/ev/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1749, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dgehrig/.mamba/envs/ev/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1855, in _call_impl
+    return inner()
+           ^^^^^^^
+  File "/home/dgehrig/.mamba/envs/ev/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1803, in inner
+    result = forward_call(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dgehrig/Documents/projects/ev/ev/src/ev/models/network.py", line 38, in forward
+    x = self.input_linear(x) + self.positional_encoding(samples["position"])
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dgehrig/Documents/projects/ev/ev/src/ev/models/network.py", line 64, in positional_encoding
+    sin = torch.sin(t / self.arange[None, None, :])
+                    ~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+RuntimeError: The size of tensor a (100) must match the size of tensor b (16) at non-singleton dimension 2

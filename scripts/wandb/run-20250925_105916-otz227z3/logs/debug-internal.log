@@ -1,0 +1,7 @@
+{"time":"2025-09-25T10:59:16.712937502-04:00","level":"INFO","msg":"stream: starting","core version":"0.19.5","symlink path":"/home/dgehrig/Documents/projects/ev/ev/scripts/wandb/run-20250925_105916-otz227z3/logs/debug-core.log"}
+{"time":"2025-09-25T10:59:16.817866627-04:00","level":"INFO","msg":"created new stream","id":"otz227z3"}
+{"time":"2025-09-25T10:59:16.817895116-04:00","level":"INFO","msg":"stream: started","id":"otz227z3"}
+{"time":"2025-09-25T10:59:16.818056581-04:00","level":"INFO","msg":"writer: Do: started","stream_id":"otz227z3"}
+{"time":"2025-09-25T10:59:16.818101529-04:00","level":"INFO","msg":"handler: started","stream_id":"otz227z3"}
+{"time":"2025-09-25T10:59:16.818160562-04:00","level":"INFO","msg":"sender: started","stream_id":"otz227z3"}
+{"time":"2025-09-25T10:59:17.023674547-04:00","level":"INFO","msg":"Starting system monitor"}

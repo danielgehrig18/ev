@@ -1,0 +1,8 @@
+100%|██████████| 40/40 [00:08<00:00,  4.87it/s]
+Min Error  tensor(6.3028, device='cuda:0')
+  0%|          | 0/391 [00:00<?, ?it/s]/home/dgehrig/Documents/projects/ev/ev/scripts/train.py:106: FutureWarning: `torch.nn.utils.clip_grad_norm` is now deprecated in favor of `torch.nn.utils.clip_grad_norm_`.
+  torch.nn.utils.clip_grad_norm(model.parameters(), max_norm=0.1)
+100%|██████████| 391/391 [01:31<00:00,  4.26it/s]
+100%|██████████| 40/40 [00:14<00:00,  2.71it/s]
+Min Error  tensor(1.8018, device='cuda:0')
+ 30%|███       | 119/391 [00:36<00:45,  5.92it/s]

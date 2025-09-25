@@ -1,0 +1,8 @@
+Metadata-Version: 2.2
+Name: ev_cpp
+Version: 0.1.0
+Summary: Example Python package with a pybind11 extension
+Keywords: pybind11,C++,example
+Classifier: Programming Language :: Python :: 3
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.7

@@ -1,0 +1,41 @@
+{
+  "os": "Linux-6.8.0-65-generic-x86_64-with-glibc2.35",
+  "python": "CPython 3.11.11",
+  "startedAt": "2025-09-25T14:57:45.503052Z",
+  "program": "/home/dgehrig/Documents/projects/ev/ev/scripts/train.py",
+  "codePath": "scripts/train.py",
+  "git": {
+    "commit": "35173a9daf5508cd9b49ba7033b22634e53c60e0"
+  },
+  "email": "daniel.gehrig18@gmail.com",
+  "root": "/home/dgehrig/Documents/projects/ev/ev/scripts",
+  "host": "kostas-Legion-Pro-7-16IRX8H",
+  "executable": "/home/dgehrig/.mamba/envs/ev/bin/python",
+  "codePathLocal": "train.py",
+  "cpu_count": 24,
+  "cpu_count_logical": 32,
+  "gpu": "NVIDIA GeForce RTX 4090 Laptop GPU",
+  "gpu_count": 1,
+  "disk": {
+    "/": {
+      "total": "752311377920",
+      "used": "683561037824"
+    }
+  },
+  "memory": {
+    "total": "33374515200"
+  },
+  "cpu": {
+    "count": 24,
+    "countLogical": 32
+  },
+  "gpu_nvidia": [
+    {
+      "name": "NVIDIA GeForce RTX 4090 Laptop GPU",
+      "memoryTotal": "17171480576",
+      "cudaCores": 9728,
+      "architecture": "Ada"
+    }
+  ],
+  "cudaVersion": "12.5"
+}

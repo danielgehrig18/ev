@@ -1,0 +1,10 @@
+100%|██████████| 40/40 [00:07<00:00,  5.07it/s]
+Min Error  tensor(21.7030, device='cuda:0')
+/home/dgehrig/Documents/projects/ev/ev/scripts/train.py:178: UserWarning: Anomaly Detection has been enabled. This mode will increase the runtime and should only be enabled for debugging.
+  with torch.autograd.detect_anomaly(True):
+  0%|          | 0/391 [00:00<?, ?it/s]/home/dgehrig/Documents/projects/ev/ev/scripts/train.py:84: FutureWarning: `torch.nn.utils.clip_grad_norm` is now deprecated in favor of `torch.nn.utils.clip_grad_norm_`.
+  torch.nn.utils.clip_grad_norm(model.parameters(), max_norm=0.1)
+100%|██████████| 391/391 [01:17<00:00,  5.06it/s]
+100%|██████████| 40/40 [00:14<00:00,  2.77it/s]
+Min Error  tensor(5.3341, device='cuda:0')
+ 26%|██▋       | 103/391 [00:35<00:50,  5.65it/s]

@@ -1,0 +1,16 @@
+{"time":"2025-09-25T17:05:19.561659261-04:00","level":"INFO","msg":"stream: starting","core version":"0.19.5","symlink path":"/home/dgehrig/Documents/projects/ev/ev/scripts/wandb/run-20250925_170519-fl5nfcnd/logs/debug-core.log"}
+{"time":"2025-09-25T17:05:19.669061331-04:00","level":"INFO","msg":"created new stream","id":"fl5nfcnd"}
+{"time":"2025-09-25T17:05:19.669111012-04:00","level":"INFO","msg":"stream: started","id":"fl5nfcnd"}
+{"time":"2025-09-25T17:05:19.669264383-04:00","level":"INFO","msg":"writer: Do: started","stream_id":"fl5nfcnd"}
+{"time":"2025-09-25T17:05:19.669318597-04:00","level":"INFO","msg":"handler: started","stream_id":"fl5nfcnd"}
+{"time":"2025-09-25T17:05:19.669341328-04:00","level":"INFO","msg":"sender: started","stream_id":"fl5nfcnd"}
+{"time":"2025-09-25T17:05:19.898325904-04:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-09-25T17:05:19.898690932-04:00","level":"ERROR","msg":"git repo not found","error":"repository does not exist"}
+{"time":"2025-09-25T17:05:26.4357684-04:00","level":"INFO","msg":"stream: closing","id":"fl5nfcnd"}
+{"time":"2025-09-25T17:05:26.435787956-04:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2025-09-25T17:05:26.436119477-04:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2025-09-25T17:05:26.819632186-04:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-09-25T17:05:26.985963889-04:00","level":"INFO","msg":"handler: closed","stream_id":"fl5nfcnd"}
+{"time":"2025-09-25T17:05:26.986041894-04:00","level":"INFO","msg":"sender: closed","stream_id":"fl5nfcnd"}
+{"time":"2025-09-25T17:05:26.986038987-04:00","level":"INFO","msg":"writer: Close: closed","stream_id":"fl5nfcnd"}
+{"time":"2025-09-25T17:05:26.986173411-04:00","level":"INFO","msg":"stream: closed","id":"fl5nfcnd"}

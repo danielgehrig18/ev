@@ -1,0 +1,7 @@
+{"time":"2025-09-25T13:07:50.96164388-04:00","level":"INFO","msg":"stream: starting","core version":"0.19.5","symlink path":"/home/dgehrig/Documents/projects/ev/ev/scripts/wandb/run-20250925_130750-510aawoa/logs/debug-core.log"}
+{"time":"2025-09-25T13:07:51.070010792-04:00","level":"INFO","msg":"created new stream","id":"510aawoa"}
+{"time":"2025-09-25T13:07:51.070061642-04:00","level":"INFO","msg":"stream: started","id":"510aawoa"}
+{"time":"2025-09-25T13:07:51.070139319-04:00","level":"INFO","msg":"writer: Do: started","stream_id":"510aawoa"}
+{"time":"2025-09-25T13:07:51.070188465-04:00","level":"INFO","msg":"sender: started","stream_id":"510aawoa"}
+{"time":"2025-09-25T13:07:51.07023394-04:00","level":"INFO","msg":"handler: started","stream_id":"510aawoa"}
+{"time":"2025-09-25T13:07:51.306094322-04:00","level":"INFO","msg":"Starting system monitor"}

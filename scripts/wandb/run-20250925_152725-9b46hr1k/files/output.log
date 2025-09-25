@@ -1,0 +1,6 @@
+100%|██████████| 40/40 [00:56<00:00,  1.41s/it]
+Backend qtagg is interactive backend. Turning interactive mode on.
+Min Error  tensor(34.8177, device='cuda:0')
+  0%|          | 0/391 [00:00<?, ?it/s]/home/dgehrig/Documents/projects/ev/ev/scripts/train.py:80: FutureWarning: `torch.nn.utils.clip_grad_norm` is now deprecated in favor of `torch.nn.utils.clip_grad_norm_`.
+  torch.nn.utils.clip_grad_norm(model.parameters(), max_norm=0.1)
+  0%|          | 1/391 [00:16<1:48:38, 16.71s/it]

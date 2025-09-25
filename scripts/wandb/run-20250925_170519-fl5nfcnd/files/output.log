@@ -1,0 +1,60 @@
+  0%|          | 0/40 [00:05<?, ?it/s]
+Traceback (most recent call last):
+  File "/home/dgehrig/Documents/projects/ev/ev/scripts/train.py", line 193, in <module>
+    error = val(test_loader, model)
+            ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dgehrig/Documents/projects/ev/ev/scripts/train.py", line 122, in val
+    ret = train(loader, model, optimizer=None)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dgehrig/Documents/projects/ev/ev/scripts/train.py", line 95, in train
+    Delta_T_pred = model(timestamps=samples["timestamps"],
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dgehrig/.mamba/envs/ev/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1749, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dgehrig/.mamba/envs/ev/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1855, in _call_impl
+    return inner()
+           ^^^^^^^
+  File "/home/dgehrig/.mamba/envs/ev/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1803, in inner
+    result = forward_call(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dgehrig/Documents/projects/ev/ev/src/ev/models/network.py", line 46, in forward
+    x = self.encoder(x)
+        ^^^^^^^^^^^^^^^
+  File "/home/dgehrig/.mamba/envs/ev/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1749, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dgehrig/.mamba/envs/ev/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1760, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dgehrig/.mamba/envs/ev/lib/python3.11/site-packages/torch/nn/modules/transformer.py", line 514, in forward
+    output = mod(
+             ^^^^
+  File "/home/dgehrig/.mamba/envs/ev/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1749, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dgehrig/.mamba/envs/ev/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1760, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dgehrig/.mamba/envs/ev/lib/python3.11/site-packages/torch/nn/modules/transformer.py", line 914, in forward
+    + self._sa_block(x, src_mask, src_key_padding_mask, is_causal=is_causal)
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dgehrig/.mamba/envs/ev/lib/python3.11/site-packages/torch/nn/modules/transformer.py", line 928, in _sa_block
+    x = self.self_attn(
+        ^^^^^^^^^^^^^^^
+  File "/home/dgehrig/.mamba/envs/ev/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1749, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dgehrig/.mamba/envs/ev/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1760, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dgehrig/.mamba/envs/ev/lib/python3.11/site-packages/torch/nn/modules/activation.py", line 1373, in forward
+    attn_output, attn_output_weights = F.multi_head_attention_forward(
+                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dgehrig/.mamba/envs/ev/lib/python3.11/site-packages/torch/nn/functional.py", line 6230, in multi_head_attention_forward
+    q, k, v = _in_projection_packed(query, key, value, in_proj_weight, in_proj_bias)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dgehrig/.mamba/envs/ev/lib/python3.11/site-packages/torch/nn/functional.py", line 5614, in _in_projection_packed
+    proj = linear(q, w, b)
+           ^^^^^^^^^^^^^^^
+RuntimeError: expected mat1 and mat2 to have the same dtype, but got: double != float

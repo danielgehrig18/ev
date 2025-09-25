@@ -1,0 +1,5 @@
+  0%|          | 0/1250 [00:00<?, ?it/s]/home/dgehrig/Documents/projects/ev/ev/src/ev/models/network.py:63: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /pytorch/aten/src/ATen/native/Cross.cpp:62.)
+  r3 = torch.cross(r1, r2)
+Backend qtagg is interactive backend. Turning interactive mode on.

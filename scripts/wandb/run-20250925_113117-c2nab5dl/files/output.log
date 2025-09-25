@@ -1,0 +1,29 @@
+  0%|          | 0/1250 [00:00<?, ?it/s]/home/dgehrig/Documents/projects/ev/ev/src/ev/models/network.py:54: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Backend qtagg is interactive backend. Turning interactive mode on.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /pytorch/aten/src/ATen/native/Cross.cpp:62.)
+  r3 = torch.cross(r1, r2)
+  0%|          | 0/1250 [00:26<?, ?it/s]
+Traceback (most recent call last):
+  File "/home/dgehrig/Documents/projects/ev/ev/scripts/train.py", line 94, in val
+    ret = train(loader, model, optimizer=None)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dgehrig/Documents/projects/ev/ev/scripts/train.py", line 69, in train
+    Delta_T_pred = model(timestamps=samples["timestamps"],
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dgehrig/.mamba/envs/ev/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1749, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dgehrig/.mamba/envs/ev/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1855, in _call_impl
+    return inner()
+           ^^^^^^^
+  File "/home/dgehrig/.mamba/envs/ev/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1803, in inner
+    result = forward_call(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dgehrig/Documents/projects/ev/ev/src/ev/models/network.py", line 43, in forward
+    output = self.orthogonalize(x)
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dgehrig/Documents/projects/ev/ev/src/ev/models/network.py", line 57, in orthogonalize
+    se3 = torch.cat([P, torch.zeros(size=x.shape[:-1] + (1, 4), device=x.device)])
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: Sizes of tensors must match except in dimension 0. Expected size 3 but got size 1 for tensor number 1 in the list.

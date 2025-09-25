@@ -1,0 +1,9 @@
+{"time":"2025-09-25T13:22:21.951958735-04:00","level":"INFO","msg":"stream: starting","core version":"0.19.5","symlink path":"/home/dgehrig/Documents/projects/ev/ev/scripts/wandb/run-20250925_132221-flp72267/logs/debug-core.log"}
+{"time":"2025-09-25T13:22:22.063958827-04:00","level":"INFO","msg":"created new stream","id":"flp72267"}
+{"time":"2025-09-25T13:22:22.064021325-04:00","level":"INFO","msg":"stream: started","id":"flp72267"}
+{"time":"2025-09-25T13:22:22.064249974-04:00","level":"INFO","msg":"writer: Do: started","stream_id":"flp72267"}
+{"time":"2025-09-25T13:22:22.064293896-04:00","level":"INFO","msg":"handler: started","stream_id":"flp72267"}
+{"time":"2025-09-25T13:22:22.064536009-04:00","level":"INFO","msg":"sender: started","stream_id":"flp72267"}
+{"time":"2025-09-25T13:22:22.344211541-04:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-09-25T13:35:07.75163847-04:00","level":"INFO","msg":"api: retrying HTTP error","status":502,"url":"https://api.wandb.ai/files/danielgehrig18/ev/flp72267/file_stream","body":"\n<html><head>\n<meta http-equiv=\"content-type\" content=\"text/html;charset=utf-8\">\n<title>502 Server Error</title>\n</head>\n<body text=#000000 bgcolor=#ffffff>\n<h1>Error: Server Error</h1>\n<h2>The server encountered a temporary error and could not complete your request.<p>Please try again in 30 seconds.</h2>\n<h2></h2>\n</body></html>\n"}
+{"time":"2025-09-25T14:03:57.402333571-04:00","level":"INFO","msg":"api: retrying HTTP error","status":502,"url":"https://api.wandb.ai/files/danielgehrig18/ev/flp72267/file_stream","body":"\n<html><head>\n<meta http-equiv=\"content-type\" content=\"text/html;charset=utf-8\">\n<title>502 Server Error</title>\n</head>\n<body text=#000000 bgcolor=#ffffff>\n<h1>Error: Server Error</h1>\n<h2>The server encountered a temporary error and could not complete your request.<p>Please try again in 30 seconds.</h2>\n<h2></h2>\n</body></html>\n"}

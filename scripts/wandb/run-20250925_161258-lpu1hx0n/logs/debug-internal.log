@@ -1,0 +1,7 @@
+{"time":"2025-09-25T16:12:58.514379638-04:00","level":"INFO","msg":"stream: starting","core version":"0.19.5","symlink path":"/home/dgehrig/Documents/projects/ev/ev/scripts/wandb/run-20250925_161258-lpu1hx0n/logs/debug-core.log"}
+{"time":"2025-09-25T16:12:58.620262906-04:00","level":"INFO","msg":"created new stream","id":"lpu1hx0n"}
+{"time":"2025-09-25T16:12:58.620325913-04:00","level":"INFO","msg":"stream: started","id":"lpu1hx0n"}
+{"time":"2025-09-25T16:12:58.620421252-04:00","level":"INFO","msg":"sender: started","stream_id":"lpu1hx0n"}
+{"time":"2025-09-25T16:12:58.620440935-04:00","level":"INFO","msg":"writer: Do: started","stream_id":"lpu1hx0n"}
+{"time":"2025-09-25T16:12:58.62051085-04:00","level":"INFO","msg":"handler: started","stream_id":"lpu1hx0n"}
+{"time":"2025-09-25T16:13:00.516571005-04:00","level":"INFO","msg":"Starting system monitor"}

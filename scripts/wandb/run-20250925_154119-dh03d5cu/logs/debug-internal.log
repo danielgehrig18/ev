@@ -1,0 +1,16 @@
+{"time":"2025-09-25T15:41:19.322333901-04:00","level":"INFO","msg":"stream: starting","core version":"0.19.5","symlink path":"/home/dgehrig/Documents/projects/ev/ev/scripts/wandb/run-20250925_154119-dh03d5cu/logs/debug-core.log"}
+{"time":"2025-09-25T15:41:19.427994874-04:00","level":"INFO","msg":"created new stream","id":"dh03d5cu"}
+{"time":"2025-09-25T15:41:19.428051722-04:00","level":"INFO","msg":"stream: started","id":"dh03d5cu"}
+{"time":"2025-09-25T15:41:19.42822082-04:00","level":"INFO","msg":"writer: Do: started","stream_id":"dh03d5cu"}
+{"time":"2025-09-25T15:41:19.428312293-04:00","level":"INFO","msg":"handler: started","stream_id":"dh03d5cu"}
+{"time":"2025-09-25T15:41:19.428426604-04:00","level":"INFO","msg":"sender: started","stream_id":"dh03d5cu"}
+{"time":"2025-09-25T15:41:19.591019597-04:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-09-25T15:41:19.591423997-04:00","level":"ERROR","msg":"git repo not found","error":"repository does not exist"}
+{"time":"2025-09-25T15:41:33.857812907-04:00","level":"INFO","msg":"stream: closing","id":"dh03d5cu"}
+{"time":"2025-09-25T15:41:33.857840625-04:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2025-09-25T15:41:33.858662418-04:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2025-09-25T15:41:34.197622987-04:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-09-25T15:41:34.33718835-04:00","level":"INFO","msg":"handler: closed","stream_id":"dh03d5cu"}
+{"time":"2025-09-25T15:41:34.337237774-04:00","level":"INFO","msg":"writer: Close: closed","stream_id":"dh03d5cu"}
+{"time":"2025-09-25T15:41:34.337287577-04:00","level":"INFO","msg":"sender: closed","stream_id":"dh03d5cu"}
+{"time":"2025-09-25T15:41:34.337377076-04:00","level":"INFO","msg":"stream: closed","id":"dh03d5cu"}

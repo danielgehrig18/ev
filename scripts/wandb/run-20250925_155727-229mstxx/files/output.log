@@ -1,0 +1,100 @@
+ 68%|██████▊   | 27/40 [00:07<00:02,  5.92it/s]
+tensor(0.3023, device='cuda:0') tensor(0.4720, device='cuda:0')
+tensor(0.3447, device='cuda:0') tensor(0.4342, device='cuda:0')
+tensor(0.2848, device='cuda:0') tensor(0.4274, device='cuda:0')
+tensor(0.2761, device='cuda:0') tensor(0.4629, device='cuda:0')
+tensor(0.2745, device='cuda:0') tensor(0.4135, device='cuda:0')
+tensor(0.2779, device='cuda:0') tensor(0.4640, device='cuda:0')
+tensor(0.3387, device='cuda:0') tensor(0.3969, device='cuda:0')
+tensor(0.4032, device='cuda:0') tensor(0.4765, device='cuda:0')
+tensor(0.3122, device='cuda:0') tensor(0.4397, device='cuda:0')
+tensor(0.3370, device='cuda:0') tensor(0.4660, device='cuda:0')
+tensor(0.4020, device='cuda:0') tensor(0.4129, device='cuda:0')
+tensor(0.3694, device='cuda:0') tensor(0.3577, device='cuda:0')
+tensor(0.3969, device='cuda:0') tensor(0.3933, device='cuda:0')
+tensor(0.2433, device='cuda:0') tensor(0.4489, device='cuda:0')
+tensor(0.2861, device='cuda:0') tensor(0.3826, device='cuda:0')
+tensor(0.3182, device='cuda:0') tensor(0.5711, device='cuda:0')
+tensor(0.2539, device='cuda:0') tensor(0.4223, device='cuda:0')
+tensor(0.2664, device='cuda:0') tensor(0.4144, device='cuda:0')
+tensor(0.3390, device='cuda:0') tensor(0.5354, device='cuda:0')
+tensor(0.3278, device='cuda:0') tensor(0.3537, device='cuda:0')
+tensor(0.2753, device='cuda:0') tensor(0.4484, device='cuda:0')
+tensor(0.2480, device='cuda:0') tensor(0.4308, device='cuda:0')
+tensor(0.2239, device='cuda:0') tensor(0.4016, device='cuda:0')
+tensor(0.2958, device='cuda:0') tensor(0.4039, device='cuda:0')
+tensor(0.2341, device='cuda:0') tensor(0.6137, device='cuda:0')
+tensor(0.3185, device='cuda:0') tensor(0.3777, device='cuda:0')
+tensor(0.2931, device='cuda:0') tensor(0.4617, device='cuda:0')
+tensor(0.2309, device='cuda:0') tensor(0.5266, device='cuda:0')
+tensor(0.2873, device='cuda:0') tensor(0.4511, device='cuda:0')
+tensor(0.2727, device='cuda:0') tensor(0.4253, device='cuda:0')
+tensor(0.3868, device='cuda:0') tensor(0.5539, device='cuda:0')
+tensor(0.2650, device='cuda:0') tensor(0.4514, device='cuda:0')
+tensor(0.3332, device='cuda:0') tensor(0.5297, device='cuda:0')
+tensor(0.3813, device='cuda:0') tensor(0.4756, device='cuda:0')
+tensor(0.3652, device='cuda:0') tensor(0.4372, device='cuda:0')
+tensor(0.3759, device='cuda:0') tensor(0.4254, device='cuda:0')
+tensor(0.3134, device='cuda:0') tensor(0.5340, device='cuda:0')
+tensor(0.2464, device='cuda:0') tensor(0.5220, device='cuda:0')
+tensor(0.3413, device='cuda:0') tensor(0.4458, device='cuda:0')
+tensor(0.1801, device='cuda:0') tensor(0.2224, device='cuda:0')
+Min Error  tensor(26.2376, device='cuda:0')
+/home/dgehrig/Documents/projects/ev/ev/scripts/train.py:175: UserWarning: Anomaly Detection has been enabled. This mode will increase the runtime and should only be enabled for debugging.
+  with torch.autograd.detect_anomaly(True):
+  0%|          | 0/391 [00:00<?, ?it/s]/home/dgehrig/Documents/projects/ev/ev/scripts/train.py:81: FutureWarning: `torch.nn.utils.clip_grad_norm` is now deprecated in favor of `torch.nn.utils.clip_grad_norm_`.
+tensor(0.3218, device='cuda:0', grad_fn=<MaxBackward1>) tensor(0.5088, device='cuda:0', grad_fn=<MaxBackward1>)
+  torch.nn.utils.clip_grad_norm(model.parameters(), max_norm=0.1)
+  5%|▌         | 20/391 [00:06<00:57,  6.47it/s]/home/dgehrig/.mamba/envs/ev/lib/python3.11/site-packages/torch/autograd/graph.py:824: UserWarning: Error detected in LinalgCrossBackward0. Traceback of forward call that caused the error:
+tensor(0.3558, device='cuda:0', grad_fn=<MaxBackward1>) tensor(0.2980, device='cuda:0', grad_fn=<MaxBackward1>)
+tensor(0.3041, device='cuda:0', grad_fn=<MaxBackward1>) tensor(0.3776, device='cuda:0', grad_fn=<MaxBackward1>)
+tensor(0.2355, device='cuda:0', grad_fn=<MaxBackward1>) tensor(0.4087, device='cuda:0', grad_fn=<MaxBackward1>)
+tensor(0.2705, device='cuda:0', grad_fn=<MaxBackward1>) tensor(0.4687, device='cuda:0', grad_fn=<MaxBackward1>)
+tensor(0.3550, device='cuda:0', grad_fn=<MaxBackward1>) tensor(0.4911, device='cuda:0', grad_fn=<MaxBackward1>)
+tensor(0.3986, device='cuda:0', grad_fn=<MaxBackward1>) tensor(0.5068, device='cuda:0', grad_fn=<MaxBackward1>)
+tensor(0.4504, device='cuda:0', grad_fn=<MaxBackward1>) tensor(0.5920, device='cuda:0', grad_fn=<MaxBackward1>)
+tensor(0.2839, device='cuda:0', grad_fn=<MaxBackward1>) tensor(0.5625, device='cuda:0', grad_fn=<MaxBackward1>)
+tensor(0.3332, device='cuda:0', grad_fn=<MaxBackward1>) tensor(0.6108, device='cuda:0', grad_fn=<MaxBackward1>)
+tensor(0.3791, device='cuda:0', grad_fn=<MaxBackward1>) tensor(0.6458, device='cuda:0', grad_fn=<MaxBackward1>)
+tensor(0.3635, device='cuda:0', grad_fn=<MaxBackward1>) tensor(0.6853, device='cuda:0', grad_fn=<MaxBackward1>)
+tensor(0.4130, device='cuda:0', grad_fn=<MaxBackward1>) tensor(0.7116, device='cuda:0', grad_fn=<MaxBackward1>)
+tensor(0.4175, device='cuda:0', grad_fn=<MaxBackward1>) tensor(0.7614, device='cuda:0', grad_fn=<MaxBackward1>)
+tensor(0.4914, device='cuda:0', grad_fn=<MaxBackward1>) tensor(0.7918, device='cuda:0', grad_fn=<MaxBackward1>)
+tensor(0.4744, device='cuda:0', grad_fn=<MaxBackward1>) tensor(0.8730, device='cuda:0', grad_fn=<MaxBackward1>)
+tensor(0.5217, device='cuda:0', grad_fn=<MaxBackward1>) tensor(0.9568, device='cuda:0', grad_fn=<MaxBackward1>)
+tensor(0.5323, device='cuda:0', grad_fn=<MaxBackward1>) tensor(0.9930, device='cuda:0', grad_fn=<MaxBackward1>)
+tensor(0.5496, device='cuda:0', grad_fn=<MaxBackward1>) tensor(1.0253, device='cuda:0', grad_fn=<MaxBackward1>)
+tensor(0.6451, device='cuda:0', grad_fn=<MaxBackward1>) tensor(1.1844, device='cuda:0', grad_fn=<MaxBackward1>)
+tensor(0.6355, device='cuda:0', grad_fn=<MaxBackward1>) tensor(1.1587, device='cuda:0', grad_fn=<MaxBackward1>)
+tensor(0.6845, device='cuda:0', grad_fn=<MaxBackward1>) tensor(1.2413, device='cuda:0', grad_fn=<MaxBackward1>)
+  File "/home/dgehrig/Documents/projects/ev/ev/scripts/train.py", line 176, in <module>
+    error = train(train_loader, model, optimizer, log_every=10)
+  File "/home/dgehrig/Documents/projects/ev/ev/scripts/train.py", line 70, in train
+    Delta_T_pred = model(timestamps=samples["timestamps"],
+  File "/home/dgehrig/.mamba/envs/ev/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1749, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/dgehrig/.mamba/envs/ev/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1855, in _call_impl
+    return inner()
+  File "/home/dgehrig/.mamba/envs/ev/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1803, in inner
+    result = forward_call(*args, **kwargs)
+  File "/home/dgehrig/Documents/projects/ev/ev/src/ev/models/network.py", line 63, in forward
+    output = self.orthogonalize(output)
+  File "/home/dgehrig/Documents/projects/ev/ev/src/ev/models/network.py", line 78, in orthogonalize
+    r3 = torch.linalg.cross(r1, r2)
+ (Triggered internally at /pytorch/torch/csrc/autograd/python_anomaly_mode.cpp:122.)
+  return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+  5%|▌         | 21/391 [00:07<02:13,  2.77it/s]
+Traceback (most recent call last):
+  File "/home/dgehrig/Documents/projects/ev/ev/scripts/train.py", line 176, in <module>
+    error = train(train_loader, model, optimizer, log_every=10)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dgehrig/Documents/projects/ev/ev/scripts/train.py", line 80, in train
+    loss.backward()
+  File "/home/dgehrig/.mamba/envs/ev/lib/python3.11/site-packages/torch/_tensor.py", line 648, in backward
+    torch.autograd.backward(
+  File "/home/dgehrig/.mamba/envs/ev/lib/python3.11/site-packages/torch/autograd/__init__.py", line 353, in backward
+    _engine_run_backward(
+  File "/home/dgehrig/.mamba/envs/ev/lib/python3.11/site-packages/torch/autograd/graph.py", line 824, in _engine_run_backward
+    return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: Function 'LinalgCrossBackward0' returned nan values in its 0th output.

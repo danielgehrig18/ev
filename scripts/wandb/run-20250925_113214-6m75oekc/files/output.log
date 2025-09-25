@@ -1,0 +1,14 @@
+  0%|          | 0/1250 [00:00<?, ?it/s]/home/dgehrig/Documents/projects/ev/ev/src/ev/models/network.py:54: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Backend qtagg is interactive backend. Turning interactive mode on.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /pytorch/aten/src/ATen/native/Cross.cpp:62.)
+  r3 = torch.cross(r1, r2)
+  0%|          | 0/1250 [02:11<?, ?it/s]
+Traceback (most recent call last):
+  File "/home/dgehrig/Documents/projects/ev/ev/scripts/train.py", line 94, in val
+    ret = train(loader, model, optimizer=None)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dgehrig/Documents/projects/ev/ev/scripts/train.py", line 73, in train
+    error = se3_log_torch(torch.linalg.inv(Delta_T_gt) @ Delta_T_pred)
+                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~
+RuntimeError: The size of tensor a (8) must match the size of tensor b (100) at non-singleton dimension 1

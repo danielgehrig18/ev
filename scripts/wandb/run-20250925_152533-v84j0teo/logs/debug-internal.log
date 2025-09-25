@@ -1,0 +1,16 @@
+{"time":"2025-09-25T15:25:34.010941023-04:00","level":"INFO","msg":"stream: starting","core version":"0.19.5","symlink path":"/home/dgehrig/Documents/projects/ev/ev/scripts/wandb/run-20250925_152533-v84j0teo/logs/debug-core.log"}
+{"time":"2025-09-25T15:25:34.118246068-04:00","level":"INFO","msg":"created new stream","id":"v84j0teo"}
+{"time":"2025-09-25T15:25:34.118282488-04:00","level":"INFO","msg":"stream: started","id":"v84j0teo"}
+{"time":"2025-09-25T15:25:34.118424434-04:00","level":"INFO","msg":"writer: Do: started","stream_id":"v84j0teo"}
+{"time":"2025-09-25T15:25:34.118576585-04:00","level":"INFO","msg":"sender: started","stream_id":"v84j0teo"}
+{"time":"2025-09-25T15:25:34.118665068-04:00","level":"INFO","msg":"handler: started","stream_id":"v84j0teo"}
+{"time":"2025-09-25T15:25:34.33013982-04:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-09-25T15:25:34.330549108-04:00","level":"ERROR","msg":"git repo not found","error":"repository does not exist"}
+{"time":"2025-09-25T15:25:48.761619676-04:00","level":"INFO","msg":"stream: closing","id":"v84j0teo"}
+{"time":"2025-09-25T15:25:48.761645465-04:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2025-09-25T15:25:48.76261625-04:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2025-09-25T15:25:49.109942339-04:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-09-25T15:25:49.272151373-04:00","level":"INFO","msg":"handler: closed","stream_id":"v84j0teo"}
+{"time":"2025-09-25T15:25:49.272220606-04:00","level":"INFO","msg":"sender: closed","stream_id":"v84j0teo"}
+{"time":"2025-09-25T15:25:49.272189432-04:00","level":"INFO","msg":"writer: Close: closed","stream_id":"v84j0teo"}
+{"time":"2025-09-25T15:25:49.272367805-04:00","level":"INFO","msg":"stream: closed","id":"v84j0teo"}

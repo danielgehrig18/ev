@@ -1,0 +1,8 @@
+{"time":"2025-09-25T15:04:51.411894754-04:00","level":"INFO","msg":"stream: starting","core version":"0.19.5","symlink path":"/home/dgehrig/Documents/projects/ev/ev/scripts/wandb/run-20250925_150451-krrahk8b/logs/debug-core.log"}
+{"time":"2025-09-25T15:04:51.51747198-04:00","level":"INFO","msg":"created new stream","id":"krrahk8b"}
+{"time":"2025-09-25T15:04:51.517601629-04:00","level":"INFO","msg":"stream: started","id":"krrahk8b"}
+{"time":"2025-09-25T15:04:51.517750646-04:00","level":"INFO","msg":"writer: Do: started","stream_id":"krrahk8b"}
+{"time":"2025-09-25T15:04:51.517904828-04:00","level":"INFO","msg":"handler: started","stream_id":"krrahk8b"}
+{"time":"2025-09-25T15:04:51.51806282-04:00","level":"INFO","msg":"sender: started","stream_id":"krrahk8b"}
+{"time":"2025-09-25T15:04:51.830941991-04:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-09-25T15:04:51.832308268-04:00","level":"ERROR","msg":"git repo not found","error":"repository does not exist"}

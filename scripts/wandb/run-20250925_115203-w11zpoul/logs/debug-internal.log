@@ -1,0 +1,7 @@
+{"time":"2025-09-25T11:52:03.547934121-04:00","level":"INFO","msg":"stream: starting","core version":"0.19.5","symlink path":"/home/dgehrig/Documents/projects/ev/ev/scripts/wandb/run-20250925_115203-w11zpoul/logs/debug-core.log"}
+{"time":"2025-09-25T11:52:03.655650147-04:00","level":"INFO","msg":"created new stream","id":"w11zpoul"}
+{"time":"2025-09-25T11:52:03.655704023-04:00","level":"INFO","msg":"stream: started","id":"w11zpoul"}
+{"time":"2025-09-25T11:52:03.655823943-04:00","level":"INFO","msg":"writer: Do: started","stream_id":"w11zpoul"}
+{"time":"2025-09-25T11:52:03.655947956-04:00","level":"INFO","msg":"handler: started","stream_id":"w11zpoul"}
+{"time":"2025-09-25T11:52:03.656078202-04:00","level":"INFO","msg":"sender: started","stream_id":"w11zpoul"}
+{"time":"2025-09-25T11:52:03.856873215-04:00","level":"INFO","msg":"Starting system monitor"}

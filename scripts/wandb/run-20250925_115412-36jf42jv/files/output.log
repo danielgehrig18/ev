@@ -1,0 +1,20 @@
+  0%|          | 0/1250 [00:00<?, ?it/s]/home/dgehrig/Documents/projects/ev/ev/src/ev/models/network.py:63: UserWarning: Using torch.cross without specifying the dim arg is deprecated.
+Please either pass the dim explicitly or simply use torch.linalg.cross.
+The default value of dim will change to agree with that of linalg.cross in a future release. (Triggered internally at /pytorch/aten/src/ATen/native/Cross.cpp:62.)
+  r3 = torch.cross(r1, r2)
+Backend qtagg is interactive backend. Turning interactive mode on.
+  0%|          | 0/1250 [00:22<?, ?it/s]
+Traceback (most recent call last):
+  File "/home/dgehrig/Documents/projects/ev/ev/scripts/train.py", line 95, in val
+    ret = train(loader, model, optimizer=None)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dgehrig/Documents/projects/ev/ev/scripts/train.py", line 74, in train
+    error = se3_log_torch(torch.linalg.inv(Delta_T_gt) @ Delta_T_pred)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dgehrig/Documents/projects/ev/ev/scripts/train.py", line 58, in se3_log_torch
+    delta_t = so3_J_l_inv_torch(delta_r) @ delta_T[...,:3, 3]
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dgehrig/Documents/projects/ev/ev/scripts/train.py", line 36, in so3_J_l_inv_torch
+    norm = torch.norm(r, dim=-1, keepdims=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: norm() got an unexpected keyword argument 'keepdims'
