@@ -16,6 +16,7 @@ import os
 def FLAGS():
     parser = argparse.ArgumentParser("""Generate spline data with different motions and speed profiles.""")
     parser.add_argument("--num-samples", default=10000, type=int)
+    #parser.add_argument("--unique-trajectory-fraction", default=0.2, type=float)
     parser.add_argument("--output-directory", default="/home/dgehrig/Documents/projects/ev/ev/data/valid_spline", type=Path)
     parser.add_argument("--pose-range", default=2, type=float)
     parser.add_argument("--num-poses", default=5, type=int)
@@ -26,6 +27,7 @@ def FLAGS():
     parser.add_argument("--sampling-type", default="path")
     parser.add_argument("--time-range", nargs="+", default=[0, 10], type=int)
     parser.add_argument("--random-seed", default=1000000, type=int)
+    parser.add_argument("--num-processes", default=8, type=int)
     args = parser.parse_args()
     return args
 
@@ -66,7 +68,7 @@ if __name__ == '__main__':
         yaml.dump(config, stream=fh)
 
     (args.output_directory / "data").mkdir(exist_ok=True, parents=True)
-    with TaskManager(total=args.num_samples, processes=8, queue_size=8) as tm:
+    with TaskManager(total=args.num_samples, processes=args.num_processes, queue_size=8) as tm:
         for i in range(args.num_samples):
             tm.new_task(generate_sample, datagen, args.random_seed + i+1, args.output_directory / ("data/%06d.pth" % i))
             #generate_sample(datagen, args.output_directory / ("data/%06d.pth" % i))
