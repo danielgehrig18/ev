@@ -73,7 +73,7 @@ class Dataset:
 
         # compute the invariant frames
         spline = data.pop("spline")
-        samples = spline.sample(data["timestamps"], n=n)
+        data["samples"] = spline.sample(data["timestamps"], n=n)
         num_tokens = len(data["timestamps"])
         t0, t1 = data["timestamps"][[0, -1]]
 
