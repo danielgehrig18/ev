@@ -9,6 +9,7 @@ from pathlib import Path
 
 from ev.sample import Sampler, random_spline
 from ev.process import compute_frame
+from ev.spline import generate_random_phi
 
 
 class DataGen:
@@ -54,12 +55,13 @@ def augment_samples_with_frames(samples):
 
 
 class Dataset:
-    def __init__(self, root: Path, split="train"):
+    def __init__(self, root: Path, split="train", sampling_type="event_based"):
         self.root = root
         self.split = split
 
         self.files = sorted(root.glob("data/*.pth"))
         self.config_path = root / "config.yaml"
+        self.sampling_type = sampling_type
 
         with self.config_path.open("r") as fh:
             self.config = yaml.load(fh, Loader=yaml.SafeLoader)
@@ -72,26 +74,48 @@ class Dataset:
         samples = spline.sample(data["timestamps"], n=3)
         data["samples"] = augment_samples_with_frames(samples)
         num_tokens = len(data["timestamps"])
+        t0, t1 = data["timestamps"][[0, -1]]
+
+        if self.split == "train":
+            # change phi
+            phi_t = spline.phi(data["timestamps"])
+            spline.phi = generate_random_phi(time_range=[t0, t1], phi_max=phi_t[-1])
+            data["timestamps"] = solve_spline(spline.phi, t0, t1, phi_t)
 
         # target is relative pose
         T0, T1 = data["samples"]['f'][[0, -1]]
         Delta_T = np.linalg.inv(T1) @ T0
         data["target"] = Delta_T
 
-        t0, t1 = data["timestamps"][[0, -1]]
-        timestamps_regular = np.linspace(t0, t1, num=num_tokens, endpoint=True)
-        data["timestamps_regular"] = timestamps_regular
-        data["samples_regular"] = spline.sample(timestamps_regular)
+        if self.sampling_type == "regular":
+            timestamps_regular = np.linspace(t0, t1, num=num_tokens, endpoint=True)
+            data["timestamps_regular"] = timestamps_regular
+            data["samples_regular"] = spline.sample(timestamps_regular)
 
-        data["samples"] = data["samples_regular"]
+            data["samples"] = data["samples_regular"]
+
         data["samples"]["position"] = np.linspace(0, 1, num=num_tokens, endpoint=True)
-
         data = cast_dtype(data, dtype="float32")
 
         return data
 
     def __len__(self):
         return len(self.files)
+
+def solve_spline(spline, t0, t1, phi_t, num=10000):
+    t_sample = np.linspace(t0, t1, num=num, endpoint=True)
+    phi_sample = spline(t_sample)
+
+    idx = np.clip(np.searchsorted(phi_sample, phi_t) - 1, 0, len(phi_sample)-2)
+    s0 = phi_sample[idx]
+    s1 = phi_sample[idx+1]
+
+    t0 = t_sample[idx]
+    dt = t_sample[1] - t_sample[0]
+    t = dt * (phi_t - s0) / (s1 - s0 + 1e-9) + t0
+
+    return t
+
 
 def cast_dtype(data, dtype):
     if type(data) is np.ndarray:

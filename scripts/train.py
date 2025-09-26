@@ -155,12 +155,12 @@ def FLAGS():
     parser = argparse.ArgumentParser("""""")
     parser.add_argument("--batch-size", type=int, default=256)
     parser.add_argument("--learning-rate", type=float, default=1e-3)
-    parser.add_argument("--num-epochs", type=int, default=5)
+    parser.add_argument("--num-epochs", type=int, default=200)
 
     parser.add_argument("--training-root", type=Path, default="/home/dgehrig/Documents/projects/ev/ev/data/train_spline")
     parser.add_argument("--validation-root", type=Path, default="/home/dgehrig/Documents/projects/ev/ev/data/valid_spline")
 
-    parser.add_argument("--sampling", type=str, default="regular")
+    parser.add_argument("--sampling-type", type=str, default="regular")
     args = parser.parse_args()
 
     return args
@@ -179,8 +179,8 @@ if __name__ == '__main__':
 
     wandb.watch(model, log="all", log_freq=100)
 
-    training_dataset = Dataset(root=args.training_root)
-    validation_dataset = Dataset(root=args.validation_root)
+    training_dataset = Dataset(root=args.training_root, split="train", sampling_type=args.sampling_type)
+    validation_dataset = Dataset(root=args.validation_root, split="valid", sampling_type=args.sampling_type)
 
     train_loader = DataLoader(training_dataset, batch_size=args.batch_size, shuffle=True, num_workers=8, worker_init_fn=worker_init_fn)
     test_loader = DataLoader(validation_dataset, batch_size=args.batch_size, shuffle=False, num_workers=8, worker_init_fn=worker_init_fn)

@@ -9,10 +9,10 @@ from ev.lie_group_utils import Ad_vee_se3, ad_vee_se3, exp_se3, log_se3
 from ev.plot import plot_positions_and_frames, plot_velocities
 
 
-def generate_random_phi(time_range, n=5):
+def generate_random_phi(time_range, phi_max=1, n=5):
     t0, t1 = time_range
     #phi_values = np.linspace(0, 1, num=n, endpoint=True)
-    values = np.concatenate([np.array([0]), np.sort(np.random.rand(n-2)), np.array([1])])
+    values = np.concatenate([np.array([0]), np.sort(np.random.rand(n-2)), np.array([1])]) * phi_max
     times = np.linspace(t0, t1, num=n, endpoint=True)
     phi = PchipInterpolator(times, values)
 
