@@ -1,9 +1,12 @@
 import torch
 class ModelTransformerSE3(torch.nn.Module):
-    def __init__(self, f=4):
+    def __init__(self, f=4, use_frame=False):
         torch.nn.Module.__init__(self)
 
-        dimensions = 9
+        self.use_frame = use_frame
+
+        out_dimensions = 9
+        dimensions = 9 + 6 + 6 if use_frame else 9
         self.input_linear = torch.nn.Linear(dimensions, int(f * 32), bias=False)
 
         self.encoder_layer = torch.nn.TransformerEncoderLayer(
@@ -21,16 +24,23 @@ class ModelTransformerSE3(torch.nn.Module):
             *[
                 torch.nn.Linear(int(f * 32), int(f * 64), bias=True),
                 torch.nn.ReLU(),
-                torch.nn.Linear(int(f * 64), int(f * 32), bias=True),
+                torch.nn.Linear(int(f * 64), out_dimensions, bias=True),
             ]
         )
-
 
         self.register_buffer("arange", 10**(2 * torch.arange(int(f*32)//2) / int(f*32)))
 
 
-    def stack_se3(self, f):
-        return torch.cat([f[...,:3,0], f[...,:3,1], f[...,:3,3]], dim=-1)
+    def stack_features(self, samples):
+        f = samples["f"]
+        features = [f[...,:3,0], f[...,:3,1], f[...,:3,3]]
+        if self.use_frame:
+            dfr = samples["rotation_frames_orth"]
+            features.extend([dfr[...,:3,0], dfr[...,:3,1]])
+            dft = samples["rotation_frames_orth"]
+            features.extend([dft[...,:3,0], dft[...,:3,1]])
+
+        return torch.cat(features, dim=-1)
 
     def forward(self, timestamps, samples):
         # timestamps B x N
@@ -40,7 +50,7 @@ class ModelTransformerSE3(torch.nn.Module):
         #   ddf: N x 6
         #  dddf: N x 6
 
-        x = self.stack_se3(samples["f"])
+        x = self.stack_features(samples)
         x = self.input_linear(x) + self.positional_encoding(samples["position"])
 
         x = self.encoder(x)

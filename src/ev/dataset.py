@@ -55,7 +55,8 @@ def augment_samples_with_frames(samples):
 
 
 class Dataset:
-    def __init__(self, root: Path, split="train", sampling_type="event_based"):
+    def __init__(self, root: Path, split="train", sampling_type="event_based", use_frame=False):
+        self.use_frame = use_frame
         self.root = root
         self.split = split
 
@@ -68,11 +69,11 @@ class Dataset:
 
     def __getitem__(self, item):
         data = torch.load(self.files[item], weights_only=False)
+        n = 3 if self.use_frame else 0
 
         # compute the invariant frames
         spline = data.pop("spline")
-        samples = spline.sample(data["timestamps"], n=3)
-        data["samples"] = augment_samples_with_frames(samples)
+        samples = spline.sample(data["timestamps"], n=n)
         num_tokens = len(data["timestamps"])
         t0, t1 = data["timestamps"][[0, -1]]
 
@@ -81,6 +82,7 @@ class Dataset:
             phi_t = spline.phi(data["timestamps"])
             spline.phi = generate_random_phi(time_range=[t0, t1], phi_max=phi_t[-1])
             data["timestamps"] = solve_spline(spline.phi, t0, t1, phi_t)
+            data["samples"] = spline.sample(data["timestamps"], n=n)
 
         # target is relative pose
         T0, T1 = data["samples"]['f'][[0, -1]]
@@ -90,9 +92,11 @@ class Dataset:
         if self.sampling_type == "regular":
             timestamps_regular = np.linspace(t0, t1, num=num_tokens, endpoint=True)
             data["timestamps_regular"] = timestamps_regular
-            data["samples_regular"] = spline.sample(timestamps_regular)
-
+            data["samples_regular"] = spline.sample(timestamps_regular, n=n)
             data["samples"] = data["samples_regular"]
+
+        if self.use_frame:
+            data["samples"] = augment_samples_with_frames(data["samples"])
 
         data["samples"]["position"] = np.linspace(0, 1, num=num_tokens, endpoint=True)
         data = cast_dtype(data, dtype="float32")

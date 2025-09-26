@@ -19,70 +19,8 @@ def to_device(samples, device="cuda:0"):
         return samples.to(device)
     return {k: to_device(v) for k, v in samples.items()}
 
-def so3_log_torch(delta_R, eps=1e-9):
-    trace = torch.einsum("...ii->...", delta_R)
-    cos_theta = torch.clamp(0.5 * (trace - 1), -1, 1)
-    theta = torch.arccos(cos_theta)
-
-    sinc = torch.where(theta.abs() < 1e-4, 1, torch.sin(theta) / theta + eps)
-    w = 0.5 / sinc[:,None,None] * (delta_R - delta_R.mT)
-    w = w[...,[2,0,1],[1,2,0]]
-
-    # for angles close to pi fix
-    mask = torch.pi - theta < 1e-3
-    w[mask] = so3_log_torch_pi(delta_R[mask])
-
-    return w
-
-def so3_log_torch_pi(delta_R):
-    # follow this https://cvg.cit.tum.de/_media/members/demmeln/nurlanov2021so3log.pdf
-    R_11 = delta_R[...,0,0]
-    R_22 = delta_R[...,1,1]
-    R_33 = delta_R[...,2,2]
-
-    R_12 = delta_R[...,0,1]
-    R_13 = delta_R[...,0,2]
-
-    eps1 = 1
-    eps2 = torch.sign(R_12 / torch.sqrt((1+R_11) * (1+R_22)))
-    eps3 = torch.sign(R_13 / torch.sqrt((1+R_11) * (1+R_33)))
-
-    w = torch.stack([eps1 * torch.sqrt(.5*(1+R_11)),
-                     eps2 * torch.sqrt(.5*(1+R_22)),
-                     eps3 * torch.sqrt(.5*(1+R_33))], dim=-1)
-
-    return w
-
-def so3_J_l_inv_torch(r, eps=1e-9):
-    r_hat = so3_hat_torch(r)
-    norm = (r.pow(2).sum(dim=-1) + eps).sqrt()
-    k = (1 / norm**2 - (1 + torch.cos(norm)) / (2 * norm * torch.sin(norm)))
-    I = torch.eye(3, device=r.device)
-    J_inv = I[None] - 0.5 * r_hat + k[...,None,None] * r_hat @ r_hat
-    J_inv[norm < 1e-4] = I[None] - 0.5 * r_hat[norm < 1e-4]
-    return J_inv
-
-def so3_hat_torch(r):
-    out = torch.zeros(size=(r.shape[:-1] + (3,3)), device=r.device)
-    out[...,2,1] = r[...,0]
-    out[...,1,0] = r[...,2]
-    out[...,0,2] = r[...,1]
-
-    out[...,1,2] = -r[...,0]
-    out[...,0,1] = -r[...,2]
-    out[...,2,0] = -r[...,1]
-
-    return out
-
 def se3_log_torch(delta_T):
     return pp.mat2SE3(delta_T, check=False).Log().matrix()
-    #delta_R = delta_T[...,:3,:3]
-#
-    #delta_r = so3_log_torch(delta_R)
-    ##delta_t = so3_J_l_inv_torch(delta_r) @ delta_T[...,:3, 3:4]
-    #delta_t = delta_T[...,:3, 3:4]
-#
-    #return torch.cat([delta_r, delta_t[...,0]], dim=-1)
 
 def train(loader, model, optimizer=None, log_every=-1):
     loss_aggr = 0
@@ -97,8 +35,6 @@ def train(loader, model, optimizer=None, log_every=-1):
 
         Delta_T_gt = samples["target"]
         error = se3_log_torch(torch.linalg.inv(Delta_T_gt) @ Delta_T_pred)
-        #B = len(Delta_T_pred)
-        #error = (torch.linalg.inv(Delta_T_gt) @ Delta_T_pred).view(B, -1)
         loss = error.pow(2).sum(-1).mean()
 
         if optimizer is not None:
@@ -161,6 +97,7 @@ def FLAGS():
     parser.add_argument("--validation-root", type=Path, default="/home/dgehrig/Documents/projects/ev/ev/data/valid_spline")
 
     parser.add_argument("--sampling-type", type=str, default="regular")
+    parser.add_argument("--use-frame", action="store_true")
     args = parser.parse_args()
 
     return args
@@ -174,13 +111,15 @@ if __name__ == '__main__':
     args = FLAGS()
     wandb.init(project="ev_se3", config=vars(args))
 
-    model = ModelTransformerSE3(f=1)
+    model = ModelTransformerSE3(f=1, use_frame=args.use_frame)
     model = model.cuda()
 
     wandb.watch(model, log="all", log_freq=100)
 
-    training_dataset = Dataset(root=args.training_root, split="train", sampling_type=args.sampling_type)
-    validation_dataset = Dataset(root=args.validation_root, split="valid", sampling_type=args.sampling_type)
+    training_dataset = Dataset(root=args.training_root, split="train", sampling_type=args.sampling_type,
+                               use_frame=args.use_frame)
+    validation_dataset = Dataset(root=args.validation_root, split="valid", sampling_type=args.sampling_type,
+                                 use_frame=args.use_frame)
 
     train_loader = DataLoader(training_dataset, batch_size=args.batch_size, shuffle=True, num_workers=8, worker_init_fn=worker_init_fn)
     test_loader = DataLoader(validation_dataset, batch_size=args.batch_size, shuffle=False, num_workers=8, worker_init_fn=worker_init_fn)
