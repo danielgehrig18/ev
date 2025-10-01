@@ -8,11 +8,13 @@ import wandb
 import os
 import random
 import pypose as pp
-from ev.models.network import ModelTransformerSE3
+from ev.models.network import ModelTransformerSE3, ModelSE3GPT
 from ev.dataset import Dataset
 from pathlib import Path
+from mingpt.trainer import Trainer
 
 from ev.dataset import Dataset
+from ev.se3 import se3_log_map
 
 def to_device(samples, device="cuda:0"):
     if type(samples) is torch.Tensor:
@@ -20,6 +22,7 @@ def to_device(samples, device="cuda:0"):
     return {k: to_device(v) for k, v in samples.items()}
 
 def se3_log_torch(delta_T):
+    #return se3_log_map(delta_T)
     return pp.mat2SE3(delta_T, check=False).Log().matrix()
 
 def train(loader, model, optimizer=None, log_every=-1):
@@ -30,11 +33,10 @@ def train(loader, model, optimizer=None, log_every=-1):
             optimizer.zero_grad()
 
         samples = to_device(samples)
-        Delta_T_pred = model(timestamps=samples["timestamps"],
-                             samples=samples["samples"])
+        Delta_T_pred = model(samples=samples["samples"])
 
-        Delta_T_gt = samples["target"]
-        error = se3_log_torch(torch.linalg.inv(Delta_T_gt) @ Delta_T_pred)
+        Delta_T_gt_inv = samples["target_inv"]
+        error = se3_log_torch(Delta_T_gt_inv @ Delta_T_pred)
         loss = error.pow(2).sum(-1).mean()
 
         if optimizer is not None:
@@ -89,7 +91,8 @@ def set_seed(seed):
 
 def FLAGS():
     parser = argparse.ArgumentParser("""""")
-    parser.add_argument("--batch-size", type=int, default=256)
+    parser.add_argument("--batch-size", type=int, default=64)
+    parser.add_argument("--model-capacity", type=float, default=8)
     parser.add_argument("--learning-rate", type=float, default=1e-3)
     parser.add_argument("--num-epochs", type=int, default=200)
 
@@ -111,8 +114,20 @@ if __name__ == '__main__':
     args = FLAGS()
     wandb.init(project="ev_se3", config=vars(args))
 
-    model = ModelTransformerSE3(f=1, use_frame=args.use_frame)
+
+    train_config = Trainer.get_default_config()
+    train_config.learning_rate = args.learning_rate  # many possible options, see the file
+
+    # setup the optimizer
+    model_config = ModelSE3GPT.get_default_config()
+    model_config.model_type = 'gpt2'
+    model_config.vocab_size = 9 + (12 if args.use_frame else 0)  # openai's model vocabulary
+    model_config.block_size = 1024  # openai's model block_size (i.e. input context length)
+
+    model = ModelSE3GPT(model_config, use_frame=args.use_frame)
     model = model.cuda()
+
+    optimizer = model.configure_optimizers(train_config)
 
     wandb.watch(model, log="all", log_freq=100)
 
@@ -123,8 +138,6 @@ if __name__ == '__main__':
 
     train_loader = DataLoader(training_dataset, batch_size=args.batch_size, shuffle=True, num_workers=8, worker_init_fn=worker_init_fn)
     test_loader = DataLoader(validation_dataset, batch_size=args.batch_size, shuffle=False, num_workers=8, worker_init_fn=worker_init_fn)
-
-    optimizer = torch.optim.AdamW(model.parameters(), lr=args.learning_rate)
 
     min_error = torch.inf
 

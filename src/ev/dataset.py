@@ -53,6 +53,17 @@ def augment_samples_with_frames(samples):
     return samples
 
 
+def stack_features(samples, use_frame=False):
+    f = samples["f"]
+    features = [f[...,:3,0], f[...,:3,1], f[...,:3,3]]
+
+    if use_frame:
+        dfr = samples["rotation_frames_orth"]
+        features.extend([dfr[...,:3,0], dfr[...,:3,1]])
+        dft = samples["rotation_frames_orth"]
+        features.extend([dft[...,:3,0], dft[...,:3,1]])
+
+    return np.concatenate(features, axis=-1)
 
 class Dataset:
     def __init__(self, root: Path, split="train", sampling_type="event_based", use_frame=False):
@@ -86,22 +97,25 @@ class Dataset:
 
         # target is relative pose
         T0, T1 = data["samples"]['f'][[0, -1]]
-        Delta_T = np.linalg.inv(T1) @ T0
-        data["target"] = Delta_T
+        Delta_T_inv = np.linalg.inv(np.linalg.inv(T1) @ T0)
+        data["target_inv"] = Delta_T_inv
 
         if self.sampling_type == "regular":
             timestamps_regular = np.linspace(t0, t1, num=num_tokens, endpoint=True)
-            data["timestamps_regular"] = timestamps_regular
-            data["samples_regular"] = spline.sample(timestamps_regular, n=n)
-            data["samples"] = data["samples_regular"]
+            data["timestamps"] = timestamps_regular
+            data["samples"] = spline.sample(timestamps_regular, n=n)
 
         if self.use_frame:
             data["samples"] = augment_samples_with_frames(data["samples"])
 
-        data["samples"]["position"] = np.linspace(0, 1, num=num_tokens, endpoint=True)
+        #data["samples"]["position"] = np.linspace(0, 1, num=num_tokens, endpoint=True)
         data = cast_dtype(data, dtype="float32")
 
-        return data
+        return {
+            "samples": stack_features(data["samples"], self.use_frame),
+            "target_inv": data["target_inv"]
+        }
+
 
     def __len__(self):
         return len(self.files)

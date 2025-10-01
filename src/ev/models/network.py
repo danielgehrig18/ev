@@ -1,4 +1,80 @@
 import torch
+from mingpt.model import GPT
+from torch import nn
+
+def stack_features(samples, use_frame=False):
+    f = samples["f"]
+    features = [f[...,:3,0], f[...,:3,1], f[...,:3,3]]
+
+    if use_frame:
+        dfr = samples["rotation_frames_orth"]
+        features.extend([dfr[...,:3,0], dfr[...,:3,1]])
+        dft = samples["rotation_frames_orth"]
+        features.extend([dft[...,:3,0], dft[...,:3,1]])
+
+    return torch.cat(features, dim=-1)
+
+
+def orthogonalize(x, eps=1e-18, out=None):
+    r1 = x[...,0:3]
+    r2 = x[...,3:6]
+    t = x[...,6:9]
+
+    norm_1 = r1.pow(2).sum(-1, keepdim=True)
+    r1 = r1 / torch.sqrt(eps + norm_1)
+    r2 = r2 - (r1 * r2).sum(-1, keepdim=True) * r1
+
+    norm_2 = r2.pow(2).sum(-1, keepdim=True)
+    r2 = r2 / torch.sqrt(eps + norm_2)
+    r3 = torch.linalg.cross(r1, r2)
+
+    R = torch.stack([r1, r2, r3], dim=-1)
+
+    if out is None:
+        out = torch.zeros(size=x.shape[:-1] + (4, 4), device=x.device)
+
+    out[...,:3,:3] = R
+    out[...,:3, 3] = t
+    out[...,-1,-1] = 1
+
+    return out
+
+
+class ModelSE3GPT(GPT):
+    def __init__(self, *args, **kwargs):
+        use_frame = kwargs.pop('use_frame')
+        GPT.__init__(self, *args, **kwargs)
+        #self.use_frame = use_frame
+        self.pos_emb = None
+        self.input_projection = nn.Linear(in_features=9 + (12 if use_frame else 0), out_features=768, bias=True)
+        self.out = None
+
+    def forward(self, samples):
+        # samples: B x T x C
+        #samples = stack_features(samples, use_frame=self.use_frame)
+        device = samples.device
+        b, t, C = samples.size()
+
+        assert t <= self.block_size, f"Cannot forward sequence of length {t}, block size is only {self.block_size}"
+        if self.pos_emb is None:
+            pos = torch.arange(0, t, dtype=torch.long, device=device).unsqueeze(0)  # shape (1, t)
+            self.pos_emb = self.transformer.wpe(pos)
+
+        # forward the GPT model itself
+        tok_emb = self.input_projection(samples)  # token embeddings of shape (b, t, n_embd)
+        x = self.transformer.drop(tok_emb + self.pos_emb)
+        for block in self.transformer.h:
+            x = block(x)
+        x = self.transformer.ln_f(x)
+        output = self.lm_head(x)
+
+        if self.out is None:
+            self.out = torch.zeros(size=output.shape[:-2] + (4, 4), device=x.device)
+
+        output = orthogonalize(output[:,-1,:9], out=self.out[:len(output)].clone())
+
+        return output
+
 class ModelTransformerSE3(torch.nn.Module):
     def __init__(self, f=4, use_frame=False):
         torch.nn.Module.__init__(self)
@@ -30,18 +106,6 @@ class ModelTransformerSE3(torch.nn.Module):
 
         self.register_buffer("arange", 10**(2 * torch.arange(int(f*32)//2) / int(f*32)))
 
-
-    def stack_features(self, samples):
-        f = samples["f"]
-        features = [f[...,:3,0], f[...,:3,1], f[...,:3,3]]
-        if self.use_frame:
-            dfr = samples["rotation_frames_orth"]
-            features.extend([dfr[...,:3,0], dfr[...,:3,1]])
-            dft = samples["rotation_frames_orth"]
-            features.extend([dft[...,:3,0], dft[...,:3,1]])
-
-        return torch.cat(features, dim=-1)
-
     def forward(self, timestamps, samples):
         # timestamps B x N
         # samples:
@@ -50,38 +114,15 @@ class ModelTransformerSE3(torch.nn.Module):
         #   ddf: N x 6
         #  dddf: N x 6
 
-        x = self.stack_features(samples)
+        x = stack_features(samples, self.use_frame)
         x = self.input_linear(x) + self.positional_encoding(samples["position"])
 
         x = self.encoder(x)
 
         output = self.output_mlp(x[...,-1,:])
-        output = self.orthogonalize(output)
+        output = orthogonalize(output)
 
         return output
-
-    def orthogonalize(self, x, eps=1e-18):
-        r1 = x[...,0:3]
-        r2 = x[...,3:6]
-        t = x[...,6:9]
-
-        norm_1 = r1.pow(2).sum(-1, keepdim=True)
-        r1 = r1 / torch.sqrt(eps + norm_1)
-        r2 = r2 - (r1 * r2).sum(-1, keepdim=True) * r1
-
-        norm_2 = r2.pow(2).sum(-1, keepdim=True)
-        r2 = r2 / torch.sqrt(eps + norm_2)
-        r3 = torch.linalg.cross(r1, r2)
-
-        R = torch.stack([r1, r2, r3], dim=-1)
-        se3 = torch.zeros(size=x.shape[:-1] + (4, 4), device=x.device)
-        se3[...,:3,:3] = R
-        se3[...,:3, 3] = t
-        se3[...,-1,-1] = 1
-
-        assert not torch.isnan(se3).any()
-
-        return se3
 
     def positional_encoding(self, t):
         # B X S x 1 -> B X S x P, t in [0, 1]
