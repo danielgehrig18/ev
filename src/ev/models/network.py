@@ -96,7 +96,7 @@ class ModelTransformerSE3(torch.nn.Module):
 
         self.output_mlp = torch.nn.Sequential(
             *[
-                torch.nn.Linear(int(model_capacity * 32), int(model_capacity * 64), bias=True),
+                torch.nn.Linear(2*int(model_capacity * 32), int(model_capacity * 64), bias=True),
                 torch.nn.ReLU(),
                 torch.nn.Linear(int(model_capacity * 64), out_dimensions, bias=True),
             ]
@@ -121,7 +121,8 @@ class ModelTransformerSE3(torch.nn.Module):
 
         x = self.encoder(x)
 
-        output = self.output_mlp(x[...,-1,:])
+        output = torch.cat([x[..., 0, :], x[..., -1, :]], dim=-1)
+        output = self.output_mlp(output)
         output = orthogonalize(output)
 
         return output
