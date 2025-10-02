@@ -92,7 +92,7 @@ def set_seed(seed):
 def FLAGS():
     parser = argparse.ArgumentParser("""""")
     parser.add_argument("--batch-size", type=int, default=64)
-    parser.add_argument("--model-capacity", type=float, default=8)
+    parser.add_argument("--model-capacity", type=float, default=1)
     parser.add_argument("--learning-rate", type=float, default=1e-3)
     parser.add_argument("--num-epochs", type=int, default=200)
 
@@ -114,20 +114,21 @@ if __name__ == '__main__':
     args = FLAGS()
     wandb.init(project="ev_se3", config=vars(args))
 
-
-    train_config = Trainer.get_default_config()
-    train_config.learning_rate = args.learning_rate  # many possible options, see the file
+    #train_config = Trainer.get_default_config()
+    #train_config.learning_rate = args.learning_rate  # many possible options, see the file
 
     # setup the optimizer
-    model_config = ModelSE3GPT.get_default_config()
-    model_config.model_type = 'gpt2'
-    model_config.vocab_size = 9 + (12 if args.use_frame else 0)  # openai's model vocabulary
-    model_config.block_size = 1024  # openai's model block_size (i.e. input context length)
+    #model_config = ModelSE3GPT.get_default_config()
+    #model_config.model_type = 'gpt2'
+    #model_config.vocab_size = 9 + (12 if args.use_frame else 0)  # openai's model vocabulary
+    #model_config.block_size = 1024  # openai's model block_size (i.e. input context length)
 
-    model = ModelSE3GPT(model_config, use_frame=args.use_frame)
+    #model = ModelSE3GPT(model_config, use_frame=args.use_frame)
+    model = ModelTransformerSE3(f=args.model_capacity, use_frame=args.use_frame)
     model = model.cuda()
 
-    optimizer = model.configure_optimizers(train_config)
+    optimizer = torch.optim.AdamW(params=model.parameters(), lr=args.learning_rate)
+    #optimizer = model.configure_optimizers(train_config)
 
     wandb.watch(model, log="all", log_freq=100)
 

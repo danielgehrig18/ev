@@ -75,6 +75,7 @@ class ModelSE3GPT(GPT):
 
         return output
 
+
 class ModelTransformerSE3(torch.nn.Module):
     def __init__(self, f=4, use_frame=False):
         torch.nn.Module.__init__(self)
