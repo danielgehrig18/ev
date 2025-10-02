@@ -77,35 +77,33 @@ class ModelSE3GPT(GPT):
 
 
 class ModelTransformerSE3(torch.nn.Module):
-    def __init__(self, f=4, use_frame=False):
+    def __init__(self, model_capacity=4, num_heads=1, num_layers=1, use_frame=False):
         torch.nn.Module.__init__(self)
-
-        self.use_frame = use_frame
 
         out_dimensions = 9
         dimensions = 9 + 6 + 6 if use_frame else 9
-        self.input_linear = torch.nn.Linear(dimensions, int(f * 32), bias=False)
+        self.input_linear = torch.nn.Linear(dimensions, int(model_capacity * 32), bias=False)
 
         self.encoder_layer = torch.nn.TransformerEncoderLayer(
-            d_model=int(f * 32),
-            nhead=1,  # todo theres a bug with more than 1 head
-            dim_feedforward=int(f * 64),
+            d_model=int(model_capacity * 32),
+            nhead=num_heads,  # todo theres a bug with more than 1 head
+            dim_feedforward=int(model_capacity * 64),
             batch_first=True,
             dropout=0,
             layer_norm_eps=1e-12
         )
-        self.encoder = torch.nn.TransformerEncoder(encoder_layer=self.encoder_layer, num_layers=4,
-                                                   enable_nested_tensor=False)
+        self.encoder = torch.nn.TransformerEncoder(encoder_layer=self.encoder_layer, num_layers=num_layers)
 
         self.output_mlp = torch.nn.Sequential(
             *[
-                torch.nn.Linear(int(f * 32), int(f * 64), bias=True),
+                torch.nn.Linear(int(model_capacity * 32), int(model_capacity * 64), bias=True),
                 torch.nn.ReLU(),
-                torch.nn.Linear(int(f * 64), out_dimensions, bias=True),
+                torch.nn.Linear(int(model_capacity * 64), out_dimensions, bias=True),
             ]
         )
 
-        self.register_buffer("arange", 10**(2 * torch.arange(int(f*32)//2) / int(f*32)))
+        arange = 10**(2 * torch.arange(int(model_capacity*32)//2) / int(model_capacity*32))
+        self.register_buffer("arange", arange)
         self.position = None
 
     def forward(self, x):

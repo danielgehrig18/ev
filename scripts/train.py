@@ -93,6 +93,8 @@ def FLAGS():
     parser = argparse.ArgumentParser("""""")
     parser.add_argument("--batch-size", type=int, default=64)
     parser.add_argument("--model-capacity", type=float, default=1)
+    parser.add_argument("--num-heads", type=int, default=1)
+    parser.add_argument("--num-layers", type=int, default=4)
     parser.add_argument("--learning-rate", type=float, default=1e-3)
     parser.add_argument("--num-epochs", type=int, default=200)
 
@@ -124,7 +126,13 @@ if __name__ == '__main__':
     #model_config.block_size = 1024  # openai's model block_size (i.e. input context length)
 
     #model = ModelSE3GPT(model_config, use_frame=args.use_frame)
-    model = ModelTransformerSE3(f=args.model_capacity, use_frame=args.use_frame)
+    model = ModelTransformerSE3(
+        use_frame=args.use_frame,
+        num_layers=args.num_layers,
+        num_heads=args.num_heads,
+        model_capacity=args.model_capacity
+    )
+
     model = model.cuda()
 
     optimizer = torch.optim.AdamW(params=model.parameters(), lr=args.learning_rate)
