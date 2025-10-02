@@ -107,15 +107,14 @@ class ModelTransformerSE3(torch.nn.Module):
 
         self.register_buffer("arange", 10**(2 * torch.arange(int(f*32)//2) / int(f*32)))
 
-    def forward(self, timestamps, samples):
-        # timestamps B x N
-        # samples:
+    def forward(self, x):
+        # x:
         #     f: N x 4 x 4
         #    df: N x 6
         #   ddf: N x 6
         #  dddf: N x 6
 
-        x = stack_features(samples, self.use_frame)
+        #x = stack_features(samples, self.use_frame)
         x = self.input_linear(x) + self.positional_encoding(samples["position"])
 
         x = self.encoder(x)
