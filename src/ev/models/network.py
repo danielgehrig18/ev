@@ -106,6 +106,7 @@ class ModelTransformerSE3(torch.nn.Module):
         )
 
         self.register_buffer("arange", 10**(2 * torch.arange(int(f*32)//2) / int(f*32)))
+        self.position = None
 
     def forward(self, x):
         # x:
@@ -115,7 +116,10 @@ class ModelTransformerSE3(torch.nn.Module):
         #  dddf: N x 6
 
         #x = stack_features(samples, self.use_frame)
-        x = self.input_linear(x) + self.positional_encoding(samples["position"])
+        if self.position is None:
+            self.position_encoding = self.positional_encoding(torch.arange(x.shape[-2], device=x.device))
+
+        x = self.input_linear(x) + self.position_encoding[None]#self.positional_encoding(self.position)
 
         x = self.encoder(x)
 
@@ -126,6 +130,6 @@ class ModelTransformerSE3(torch.nn.Module):
 
     def positional_encoding(self, t):
         # B X S x 1 -> B X S x P, t in [0, 1]
-        sin = torch.sin(t[:,:,None] / self.arange[None, None, :])
-        cos = torch.cos(t[:,:,None] / self.arange[None, None, :])
+        sin = torch.sin(t[:,None] / self.arange[None, :])
+        cos = torch.cos(t[:,None] / self.arange[None, :])
         return torch.cat([sin, cos], dim=-1)

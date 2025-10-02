@@ -33,7 +33,7 @@ def train(loader, model, optimizer=None, log_every=-1):
             optimizer.zero_grad()
 
         samples = to_device(samples)
-        Delta_T_pred = model(samples=samples["samples"])
+        Delta_T_pred = model(samples["samples"])
 
         Delta_T_gt_inv = samples["target_inv"]
         error = se3_log_torch(Delta_T_gt_inv @ Delta_T_pred)
