@@ -99,7 +99,7 @@ class Dataset:
         t_fine_samples = np.linspace(t0, t1, 10000, endpoint=True)
         d1f = spline.sample(t_fine_samples, n=1)['d1f']
         dt = t_fine_samples[1] - t_fine_samples[0]
-        data["target"] = np.sum(np.linalg.norm(d1f, axis=1) * dt)
+        data["target"] = np.array([np.sum(np.linalg.norm(d1f, axis=1) * dt)])
 
         if self.sampling_type == "regular":
             timestamps_regular = np.linspace(t0, t1, num=num_tokens, endpoint=True)
