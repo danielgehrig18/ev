@@ -33,11 +33,11 @@ def train(loader, model, optimizer=None, log_every=-1):
             optimizer.zero_grad()
 
         samples = to_device(samples)
-        Delta_T_pred = model(samples["samples"])
+        prediction = model(samples["samples"])
 
-        Delta_T_gt_inv = samples["target_inv"]
-        error = se3_log_torch(Delta_T_gt_inv @ Delta_T_pred)
-        loss = error.pow(2).sum(-1).mean()
+        target = samples["target"]
+        error = prediction - target
+        loss = error.pow(2).mean()
 
         if optimizer is not None:
             loss.backward()

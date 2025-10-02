@@ -95,10 +95,15 @@ class Dataset:
             data["timestamps"] = solve_spline(spline.phi, t0, t1, phi_t)
             data["samples"] = spline.sample(data["timestamps"], n=n)
 
-        # target is relative pose
-        T0, T1 = data["samples"]['f'][[0, -1]]
-        Delta_T_inv = np.linalg.inv(np.linalg.inv(T1) @ T0)
-        data["target_inv"] = Delta_T_inv
+        # target is path length
+        t_fine_samples = np.linspace(t0, t1, 10000, endpoint=True)
+        d1f = spline.sample(t_fine_samples, n=1)['d1f']
+        dt = t_fine_samples[1] - t_fine_samples[0]
+        path = np.concatenate([np.array([0]), np.cumsum(np.linalg.norm(d1f[:-1], axis=1) * dt)])
+
+        idx = np.searchsorted(t_fine_samples, data["timestamps"]) - 1
+        idx = np.clip(idx, 0, len(t_fine_samples)-2)
+        data["target"] = path[idx]
 
         if self.sampling_type == "regular":
             timestamps_regular = np.linspace(t0, t1, num=num_tokens, endpoint=True)
@@ -108,14 +113,12 @@ class Dataset:
         if self.use_frame:
             data["samples"] = augment_samples_with_frames(data["samples"])
 
-        #data["samples"]["position"] = np.linspace(0, 1, num=num_tokens, endpoint=True)
         data = cast_dtype(data, dtype="float32")
 
         return {
             "samples": stack_features(data["samples"], self.use_frame),
-            "target_inv": data["target_inv"]
+            "target": data["target"]
         }
-
 
     def __len__(self):
         return len(self.files)
