@@ -99,11 +99,7 @@ class Dataset:
         t_fine_samples = np.linspace(t0, t1, 10000, endpoint=True)
         d1f = spline.sample(t_fine_samples, n=1)['d1f']
         dt = t_fine_samples[1] - t_fine_samples[0]
-        path = np.concatenate([np.array([0]), np.cumsum(np.linalg.norm(d1f[:-1], axis=1) * dt)])
-
-        idx = np.searchsorted(t_fine_samples, data["timestamps"]) - 1
-        idx = np.clip(idx, 0, len(t_fine_samples)-2)
-        data["target"] = path[idx]
+        data["target"] = np.sum(np.linalg.norm(d1f, axis=1) * dt)
 
         if self.sampling_type == "regular":
             timestamps_regular = np.linspace(t0, t1, num=num_tokens, endpoint=True)

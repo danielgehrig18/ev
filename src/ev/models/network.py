@@ -122,7 +122,7 @@ class ModelTransformerSE3(torch.nn.Module):
         x = self.encoder(x)
 
         #output = torch.cat([x[..., 0, :], x[..., -1, :]], dim=-1)
-        output = self.output_mlp(x)[...,0]
+        output = self.output_mlp(x[...,-1,:])[...,0]
         #output = orthogonalize(output)
 
         return output
